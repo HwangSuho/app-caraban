@@ -1,0 +1,16 @@
+[Unit]
+Description=Caraban docker stack
+Requires=docker.service
+After=docker.service
+
+[Service]
+WorkingDirectory=/opt/caraban
+ExecStart=/usr/bin/docker compose -f docker-compose.prod.yml up -d
+ExecStop=/usr/bin/docker compose -f docker-compose.prod.yml down
+Restart=always
+TimeoutStartSec=0
+User=ubuntu
+Environment=COMPOSE_PROJECT_NAME=caraban
+
+[Install]
+WantedBy=multi-user.target

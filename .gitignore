@@ -1,0 +1,12 @@
+.env
+.env.*
+node_modules/
+dist/
+build/
+coverage/
+logs/
+*.log
+firebase-debug.log
+.vscode/
+.DS_Store
+*.sqlite
