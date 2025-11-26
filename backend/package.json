@@ -8,7 +8,8 @@
     "build": "tsc -p .",
     "start": "node dist/index.js",
     "lint": "echo \"add linter\"",
-    "seed": "ts-node-dev --transpile-only src/scripts/seed.ts"
+    "seed": "ts-node-dev --transpile-only src/scripts/seed.ts",
+    "postinstall": "node -e \"if(process.env.SQLITE_BUILD_FROM_SOURCE==='1'||process.env.npm_config_build_from_source){require('child_process').execSync('npm rebuild sqlite3 --build-from-source',{stdio:'inherit'})}else{console.log('skip sqlite3 rebuild (set SQLITE_BUILD_FROM_SOURCE=1 to force)')}\""
   },
   "dependencies": {
     "cors": "^2.8.5",

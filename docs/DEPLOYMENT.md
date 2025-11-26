@@ -91,3 +91,4 @@ docker compose -f docker-compose.prod.yml up -d
 - API health: `GET /api/health`
 - DB health via MariaDB container healthcheck
 - Add uptime checks (Pingdom/StatusCake) against the HTTPS endpoint
+- Vercel/SPA 빌드 시 `VITE_API_BASE_URL=https://app-caraban-backend.onrender.com/api` 로 설정하여 배포 백엔드와 연동

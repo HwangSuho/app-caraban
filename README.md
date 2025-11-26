@@ -48,6 +48,7 @@ All-in-one platform for campers, hosts, and admins with Firebase-based authentic
 - `cd backend && pnpm seed` (creates sample host + 3 campsites)
 
 ## API (preview)
+- 배포된 백엔드: `https://app-caraban-backend.onrender.com/api`
 - `GET /api/health` - health check  
 - `POST /api/auth/firebase` - verifies Firebase ID token and returns user
 - `GET /api/campsites` - public list  

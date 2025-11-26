@@ -2,11 +2,18 @@ services:
   - type: web
     name: app-caraban-backend
     env: node
-    buildCommand: corepack pnpm install --frozen-lockfile && corepack pnpm build
+    buildCommand: |
+      SQLITE_BUILD_FROM_SOURCE=1 corepack pnpm install --frozen-lockfile
+      SQLITE_BUILD_FROM_SOURCE=1 npm rebuild sqlite3 --build-from-source
+      corepack pnpm build
     startCommand: node dist/index.js
     healthCheckPath: /api/health
     autoDeploy: true
     envVars:
+      - key: NODE_VERSION
+        value: 20.12.2
+      - key: npm_config_build_from_source
+        value: "true"
       - key: NODE_ENV
         value: production
       - key: PORT
