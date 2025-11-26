@@ -11,9 +11,19 @@ export default function Layout({ children }: Props) {
   return (
     <div className="min-h-screen">
       <header className="flex items-center justify-between px-6 py-4 glass">
-        <Link to="/" className="font-semibold text-lg text-white">
-          Caraban
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link to="/" className="font-semibold text-lg text-white">
+            Caraban
+          </Link>
+          <nav className="hidden md:flex items-center gap-4 text-sm text-slate-300">
+            <Link to="/campsites" className="hover:text-white transition">
+              캠핑장 목록
+            </Link>
+            <Link to="/dashboard" className="hover:text-white transition">
+              대시보드
+            </Link>
+          </nav>
+        </div>
         <div className="flex items-center gap-3 text-sm text-slate-200">
           {user ? (
             <>

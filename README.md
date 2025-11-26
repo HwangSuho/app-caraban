@@ -4,7 +4,7 @@ All-in-one platform for campers, hosts, and admins with Firebase-based authentic
 
 ## Features (target)
 - Firebase Auth (email/password + Google) bridged to backend users
-- Campsite search/detail, reservation, payment, and reviews
+- Campsite search/list + Kakao map view, reservation, payment, and reviews
 - Host management (campsites, reservations, revenue)
 - Admin monitoring and user/review management
 - Production deploy: Docker, Nginx reverse proxy, HTTPS, CI/CD, logging
@@ -59,8 +59,9 @@ All-in-one platform for campers, hosts, and admins with Firebase-based authentic
 
 ## Environment Variables
 - Backend: set DB connection, Firebase service account keys, app secrets (`backend/.env.example`).
-- Frontend: set Firebase web config and API base URL (`web/.env.example`).
+- Frontend: set Firebase web config, API base URL, Kakao map key (`web/.env.example`).
 - Root/compose: DB credentials + Vite build args (`.env.example`).
+- Demo seed: `AUTO_SEED_DEMO=true`(backend env)로 설정하면 서버 부팅 시 캠핑장 3개를 자동 삽입합니다.
 
 ## Status
 This repo is being scaffolded to meet the project rubric (Firebase auth + production deployment). See `AGENTS.md` for the full mandate. Further code and infra configs are added iteratively.

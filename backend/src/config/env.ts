@@ -20,6 +20,7 @@ export const env = {
   dbPassword: process.env.DB_PASSWORD ?? "",
   dbStorage: process.env.DB_STORAGE ?? "./data/dev.sqlite",
   dbLogging: (process.env.DB_LOGGING ?? "false").toLowerCase() === "true",
+  autoSeedDemo: (process.env.AUTO_SEED_DEMO ?? "false").toLowerCase() === "true",
   firebaseProjectId: process.env.FIREBASE_PROJECT_ID ?? "",
   firebaseClientEmail: process.env.FIREBASE_CLIENT_EMAIL ?? "",
   firebasePrivateKey: process.env.FIREBASE_PRIVATE_KEY ?? "",

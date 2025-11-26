@@ -3,10 +3,11 @@ services:
     name: app-caraban-backend
     env: node
     buildCommand: |
+      cd backend
       SQLITE_BUILD_FROM_SOURCE=1 corepack pnpm install --frozen-lockfile
       SQLITE_BUILD_FROM_SOURCE=1 npm rebuild sqlite3 --build-from-source
       corepack pnpm build
-    startCommand: node dist/index.js
+    startCommand: cd backend && node dist/index.js
     healthCheckPath: /api/health
     autoDeploy: true
     envVars:

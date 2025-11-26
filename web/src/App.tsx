@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
+import Campsites from "./pages/Campsites";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -17,6 +18,7 @@ export default function App() {
     <Routes>
       <Route element={<LayoutShell />}>
         <Route path="/" element={<Home />} />
+        <Route path="/campsites" element={<Campsites />} />
         <Route
           path="/dashboard"
           element={
