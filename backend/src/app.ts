@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: allowAllOrigins
       ? true // echo request origin (needed when credentials: true)
-      : (origin, callback) => {
+      : (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
           if (!origin) return callback(null, true);
           if (corsOrigins.includes(origin)) return callback(null, true);
           logger.warn("CORS blocked request from origin", { origin });
