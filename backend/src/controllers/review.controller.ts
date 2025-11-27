@@ -43,3 +43,43 @@ export async function createReview(req: RequestWithUser, res: Response) {
     return res.status(400).json({ message: "Failed to create review" });
   }
 }
+
+export async function updateReview(req: RequestWithUser, res: Response) {
+  if (!req.user) return res.status(401).json({ message: "Unauthorized" });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { id } = req.params;
+  const review = await Review.findByPk(id);
+  if (!review) {
+    return res.status(404).json({ message: "Review not found" });
+  }
+  if (review.userId !== req.user.id && req.user.role !== "admin") {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+
+  const { rating, comment } = req.body;
+  if (rating !== undefined) review.rating = rating;
+  if (comment !== undefined) review.comment = comment;
+  await review.save();
+
+  return res.json({ data: review });
+}
+
+export async function deleteReview(req: RequestWithUser, res: Response) {
+  if (!req.user) return res.status(401).json({ message: "Unauthorized" });
+
+  const { id } = req.params;
+  const review = await Review.findByPk(id);
+  if (!review) {
+    return res.status(404).json({ message: "Review not found" });
+  }
+  if (review.userId !== req.user.id && req.user.role !== "admin") {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+
+  await review.destroy();
+  return res.status(204).send();
+}

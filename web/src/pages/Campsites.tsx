@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../lib/axios";
 import KakaoMap from "../components/KakaoMap";
 
@@ -97,6 +98,12 @@ export default function Campsites() {
                     <div className="mt-2 text-xs text-slate-400">
                       {camp.location ? `위치: ${camp.location}` : "위치 정보 없음"}
                     </div>
+                    <Link
+                      to={`/campsites/${camp.id}`}
+                      className="mt-3 inline-block text-xs font-semibold text-emerald-300 underline"
+                    >
+                      상세 보기
+                    </Link>
                   </div>
                   {camp.pricePerNight !== undefined && (
                     <div className="text-sm font-semibold text-emerald-300 whitespace-nowrap">
