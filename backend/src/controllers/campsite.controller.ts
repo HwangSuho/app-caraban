@@ -1,10 +1,37 @@
 import { Request, Response } from "express";
+import { validationResult } from "express-validator";
+import { Op } from "sequelize";
 import { Campsite } from "../models/campsite";
 import { RequestWithUser } from "../types/express";
 import { logger } from "../utils/logger";
 
-export async function listCampsites(_req: Request, res: Response) {
-  const campsites = await Campsite.findAll({ order: [["id", "DESC"]] });
+export async function listCampsites(req: Request, res: Response) {
+  const q = (req.query.q as string | undefined)?.trim();
+
+  const where: any = {};
+  if (q) {
+    where[Op.or] = [
+      { name: { [Op.like]: `%${q}%` } },
+      { description: { [Op.like]: `%${q}%` } },
+      { location: { [Op.like]: `%${q}%` } },
+    ];
+  }
+
+  const campsites = await Campsite.findAll({
+    where,
+    order: [["id", "DESC"]],
+  });
+  return res.json({ data: campsites });
+}
+
+export async function listMyCampsites(req: RequestWithUser, res: Response) {
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  const campsites = await Campsite.findAll({
+    where: { hostId: req.user.id },
+    order: [["id", "DESC"]],
+  });
   return res.json({ data: campsites });
 }
 
@@ -22,6 +49,11 @@ export async function createCampsite(req: RequestWithUser, res: Response) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const { name, description, location, pricePerNight } = req.body;
     const campsite = await Campsite.create({
@@ -31,6 +63,12 @@ export async function createCampsite(req: RequestWithUser, res: Response) {
       pricePerNight,
       hostId: req.user.id,
     });
+
+    // Promote to host if user created a campsite
+    if (req.user.role === "user") {
+      req.user.role = "host";
+      await req.user.save();
+    }
 
     return res.status(201).json({ data: campsite });
   } catch (err) {
@@ -42,6 +80,11 @@ export async function createCampsite(req: RequestWithUser, res: Response) {
 export async function updateCampsite(req: RequestWithUser, res: Response) {
   if (!req.user) {
     return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const { id } = req.params;
