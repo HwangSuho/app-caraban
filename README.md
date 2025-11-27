@@ -52,6 +52,7 @@ All-in-one platform for campers, hosts, and admins with Firebase-based authentic
 - `GET /api/health` - health check  
 - `POST /api/auth/firebase` - verifies Firebase ID token and returns user
 - `GET /api/campsites` - public list  
+- `GET /api/campsites/mine` - (auth) 로그인 사용자의 캠핑장 목록
 - `POST /api/reservations` - create (Firebase auth)  
 - `POST /api/reservations/:id/cancel` - cancel own reservation  
 - `GET /api/reviews/campsite/:campsiteId` - list reviews  

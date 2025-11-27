@@ -22,6 +22,9 @@ export default function Layout({ children }: Props) {
             <Link to="/dashboard" className="hover:text-white transition">
               대시보드
             </Link>
+            <Link to="/host/campsites" className="hover:text-white transition">
+              캠핑장 관리
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-3 text-sm text-slate-200">

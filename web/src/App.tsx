@@ -6,6 +6,7 @@ import Campsites from "./pages/Campsites";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import ManageCampsites from "./pages/ManageCampsites";
 
 const LayoutShell = () => (
   <Layout>
@@ -24,6 +25,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/host/campsites"
+          element={
+            <ProtectedRoute>
+              <ManageCampsites />
             </ProtectedRoute>
           }
         />
