@@ -10,3 +10,9 @@ firebase-debug.log
 .vscode/
 .DS_Store
 *.sqlite
+
+# TS build info
+web/*.tsbuildinfo
+# Vite compiled config
+web/vite.config.js
+web/vite.config.d.ts
