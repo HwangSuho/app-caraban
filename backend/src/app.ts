@@ -12,6 +12,13 @@ const corsOrigins = env.corsOrigin
   .split(",")
   .map((o) => o.trim())
   .filter(Boolean);
+
+// Ensure deploy domains are always allowed if not explicitly listed
+["https://app-caraban.vercel.app", "https://app-caraban.onrender.com"].forEach((origin) => {
+  if (!corsOrigins.includes(origin)) {
+    corsOrigins.push(origin);
+  }
+});
 const allowAllOrigins = corsOrigins.includes("*");
 
 app.use(helmet());
