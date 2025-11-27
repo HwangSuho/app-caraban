@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosRequestHeaders } from "axios";
 import { auth } from "./firebase";
 
 // If no env is provided, default to local in dev and Render backend in prod.
@@ -14,10 +14,11 @@ api.interceptors.request.use(async (config) => {
   const user = auth.currentUser;
   if (user) {
     const token = await user.getIdToken();
-    config.headers = {
-      ...config.headers,
+    const headers: AxiosRequestHeaders = {
+      ...(config.headers ?? {}),
       Authorization: `Bearer ${token}`,
     };
+    config.headers = headers;
   }
   return config;
 });
